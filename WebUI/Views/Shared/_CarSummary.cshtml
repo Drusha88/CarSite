@@ -1,0 +1,20 @@
+﻿@model Domain.Entities.Car
+
+<div class="well">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3>
+                <strong>@Model.Name</strong>
+            </h3>
+        </div>
+        <div class="col-xs-2">
+            <h3>
+
+                <div class="pull-right">
+                    @Html.ActionLink("Редактировать", "Edit", new { @Model.CarId }, new { @class = "btn btn-success" })
+                </div>
+            </h3>
+        </div>
+    </div>
+    <span class="lead">@Model.Description</span>
+</div>

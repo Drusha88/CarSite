@@ -1,0 +1,56 @@
+﻿@model Domain.Entities.User
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="panel ">
+
+    <div class="panel-body col-xs-2">
+    </div>
+
+    <div class="panel-body col-xs-4">
+        <h2>Регистрация</h2>
+        <div class="form-horizontal">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Login)
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Email)
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Password)
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password" })
+
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.PasswordConfirm)
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.PasswordConfirm, new { @class = "form-control", @type = "password" })
+                    </div>
+                </div>
+
+                @Html.Hidden("url", Request.Url.PathAndQuery)
+                <div class="control-group">
+                    <input type="submit" value="Регистрация" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

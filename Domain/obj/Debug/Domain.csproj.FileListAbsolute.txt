@@ -1,0 +1,24 @@
+c:\users\ei-ryzhenko\documents\visual studio 2013\Projects\Domain\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+C:\shop\Car\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+C:\shop\Car\Domain\bin\Debug\Domain.dll.config
+C:\shop\Car\Domain\bin\Debug\Domain.dll
+C:\shop\Car\Domain\bin\Debug\Domain.pdb
+C:\shop\Car\Domain\bin\Debug\EntityFramework.dll
+C:\shop\Car\Domain\bin\Debug\EntityFramework.SqlServer.dll
+C:\shop\Car\Domain\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.Helpers.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.Mvc.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.Razor.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.dll
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.Razor.dll
+C:\shop\Car\Domain\bin\Debug\EntityFramework.xml
+C:\shop\Car\Domain\bin\Debug\EntityFramework.SqlServer.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.Helpers.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.Mvc.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.Razor.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\shop\Car\Domain\bin\Debug\System.Web.WebPages.Razor.xml
+C:\shop\Car\Domain\obj\Debug\Domain.dll
+C:\shop\Car\Domain\obj\Debug\Domain.pdb

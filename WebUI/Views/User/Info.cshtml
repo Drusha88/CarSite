@@ -1,0 +1,8 @@
+﻿<div class="navbar-right ">
+    @Html.ActionLink("Выйти", "Logout", "User",
+    new { @class = "btn btn-default navbar-btn" })
+</div>
+
+<div class="navbar-text navbar-right">
+    <b>Вы вошли как: @Html.ViewBag.login</b>
+</div>

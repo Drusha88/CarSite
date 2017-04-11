@@ -1,0 +1,33 @@
+﻿.navbar-right {
+    float: right !important;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.control-group {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
