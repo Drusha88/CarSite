@@ -31,9 +31,22 @@ namespace Domain.Concrete
                     dbEntry.Brand = car.Brand;
                     dbEntry.Description = car.Description;
                     dbEntry.Category = car.Category;
+                    dbEntry.ImageData = car.ImageData;
+                    dbEntry.ImageMimeType = car.ImageMimeType;
                 }
             }
             context.SaveChanges();
+        }
+
+        public Car DeleteCar(int carId)
+        {
+            Car dbEntry = context.Cars.Find(carId);
+            if (dbEntry != null)
+            {
+                context.Cars.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }

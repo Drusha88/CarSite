@@ -6,8 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebUI.Models;
-using System.Diagnostics;
 using WebUI.Infrastructure;
+using System.IO;
+using System.Diagnostics;
 
 namespace WebUI.Controllers
 {
@@ -22,44 +23,79 @@ namespace WebUI.Controllers
         }
 
 
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(string category, string search, int page = 1)
         {
-            CarsListViewModel model = new CarsListViewModel
-            {
-                Cars = repository.Cars
-                .Where(c => category == null || c.Category == category)
-                .OrderBy(car => car.CarId)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize),
 
-                PagingInfo = new PagingInfo
+            if (string.IsNullOrEmpty(search))
+            {
+                CarsListViewModel model = new CarsListViewModel
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize,
-                    TotalItems = category == null ?
-                        repository.Cars.Count() :
-                        repository.Cars.Where(car => car.Category == category).Count()
-                },
-                CurrentCategory = category
-            };
-            Debug.WriteLine(model.Cars.ToString());
-            return View(model);
+                    Cars = repository.Cars
+                    .Where(c => category == null || c.Category == category)
+                    .OrderBy(car => car.CarId)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize),
+
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = pageSize,
+                        TotalItems = category == null ?
+                            repository.Cars.Count() :
+                            repository.Cars.Where(car => car.Category == category).Count()
+                    },
+                    CurrentCategory = category
+                };
+                return View(model);
+            }
+            else
+            {
+                CarsListViewModel model = new CarsListViewModel 
+                {
+                    Cars = repository.Cars
+                    .Where( c => c.Name.ToLower().Contains(search.ToLower()))
+                    .OrderBy(car => car.CarId)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize),
+
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = pageSize,
+                        TotalItems = repository.Cars.Where(c => c.Name.ToLower().Contains(search.ToLower())).Count()
+                    },
+                    CurrentCategory = null
+                };
+                TempData["message"] = string.Format("Поиск \"{0}\", результатов: {1}.", search, model.Cars.Count());
+                return View(model);
+            }
         }
 
         public ViewResult Edit(int carId)
         {
 
             Car car = repository.Cars.FirstOrDefault(c => c.CarId == carId);
-            return View(car);
+            if (car != null)
+                return View(car);
+            else
+                return View();
         }
 
 
         [HttpPost]
-        public ActionResult Edit(Car car)
+        public ActionResult Edit(Car car, HttpPostedFileBase image = null)
         {
+            Debug.WriteLine("Edit: {0}",car.CarId);
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    car.ImageMimeType = image.ContentType;
+                    car.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(car.ImageData, 0, image.ContentLength);
+                }
                 repository.SaveCar(car);
+                TempData["message"] = string.Format("Запись \"{0}\" успешно изменена.", car.Name);
                 return RedirectToAction("List");
             }
             else
@@ -68,6 +104,64 @@ namespace WebUI.Controllers
             }
         }
 
+        public ViewResult Create()
+        {
+            return View(new Car());
+        }
 
+        [HttpPost]
+        public ActionResult Create(Car car, HttpPostedFileBase image = null)
+        {
+            Debug.WriteLine("Create: {0}", car.CarId);
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    car.ImageMimeType = image.ContentType;
+                    car.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(car.ImageData, 0, image.ContentLength);
+                }
+                repository.SaveCar(car);
+                TempData["message"] = string.Format("Запись \"{0}\" успешно сохранена.", car.Name);
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return View(car);
+            }
+        }
+
+        public PartialViewResult Search()
+        {
+            string str = string.Empty;
+            return PartialView(str);
+        }
+
+        public ActionResult Delete(int carId)
+        {
+
+            Car deletedCar = repository.DeleteCar(carId);
+            if (deletedCar != null)
+            {
+                TempData["message"] = string.Format("Запись \"{0}\" была удалена", deletedCar.Name);
+            }
+            return RedirectToAction("List");
+        }
+
+        public FileContentResult GetImage(int carId)
+        {
+            Car car = repository.Cars
+                .FirstOrDefault(g => g.CarId == carId);
+
+            if (car != null)
+            {
+                return File(car.ImageData, car.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
 	}
+    
 }

@@ -32,5 +32,11 @@ namespace Domain.Entities
         [StringLength(50)]
         [Display(Name = "Категория")]
         public string Category { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+         public byte[] ImageData { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string ImageMimeType { get; set; }
     }
 }

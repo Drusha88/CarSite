@@ -13,7 +13,14 @@
 </head>
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Транспорт</a>
+   
+            
+        <a href=@Url.Action("List", "Cars")>
+            <img src="~/Image/logo.png" class="img-fluid" height="48"  alt="Auto" />
+        </a>
+
+
+       
         @Html.Action("Info", "User")
     </div>
 
@@ -24,6 +31,14 @@
             @Html.Action("Menu", "Nav")
         </div>
         <div class="col-xs-8">
+            <div>
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
+                
+               
+            </div>
             @RenderBody()
         </div>
     </div>

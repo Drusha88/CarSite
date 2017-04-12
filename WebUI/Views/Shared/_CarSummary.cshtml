@@ -3,6 +3,14 @@
 <div class="well">
     <div class="row">
         <div class="col-xs-10">
+            @if (Model.ImageData != null)
+            {
+                <div class="pull-left" style="margin-right: 10px">
+                    <img class="img-thumbnail" width="150" height="150"
+                         src="@Url.Action("GetImage", "Cars",
+                new { Model.CarId })" />
+                </div>
+            }
             <h3>
                 <strong>@Model.Name</strong>
             </h3>
@@ -10,8 +18,10 @@
         <div class="col-xs-2">
             <h3>
 
-                <div class="pull-right">
-                    @Html.ActionLink("Редактировать", "Edit", new { @Model.CarId }, new { @class = "btn btn-success" })
+                <div class="btn-group-vertical pull-right ">
+                    @Html.ActionLink("Редактировать", "Edit", new { @Model.CarId }, new { @class = "btn btn-default" })
+
+                    @Html.ActionLink("Удалить", "Delete", new { @Model.CarId }, new { @class = "btn btn-default" })
                 </div>
             </h3>
         </div>

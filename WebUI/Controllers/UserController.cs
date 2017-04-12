@@ -92,22 +92,18 @@ namespace WebUI.Controllers
                     else
                     {
                         ModelState.AddModelError("Email", "Данный Email уже зарегестрирован.");
-                        return View(new User());
+   
                     }
 
                 }
                 else
                 {
                     ModelState.AddModelError("Login", "Login занят.");
-                    return View(new User());
 
                 }
 
             }
-            else
-            {
-                return View(new User());
-            }
+            return View(new User());
         }
 
         public ActionResult Confirm(string ticket)
@@ -115,19 +111,20 @@ namespace WebUI.Controllers
             if (repository.FindTicket(ticket))
             {
                 ViewBag.Text = "Email подтвержден.";
-                return View("Completed");
             }
             else
             {
                 ViewBag.Text = "Email не подтвержден, либо данная ссылка устарела.";
-                return View("Completed");
             }
+            return View("Completed");
         }
 
-        public ActionResult Logout()
+        public RedirectResult Logout()
         {
             Session.Clear();
-            return View("Login");
+            
+            return Redirect("/User/Login");
+        
         }
 
         public PartialViewResult Info()

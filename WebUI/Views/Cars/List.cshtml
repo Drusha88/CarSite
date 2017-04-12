@@ -4,11 +4,21 @@
 @{
     ViewBag.Title = "List";
 }
+<div class="panel-body">
+    <div class="btn-group pull-left">
+        @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-default" })
+    </div>
+
+    <div class="input-group pull-right">
+        @Html.Action("Search", "Cars")
+    </div>
+</div>
 
 @foreach (var car in Model.Cars)
 {
     @Html.Partial("_CarSummary", car)
 }
+
 
 <div class="btn-group pull-right">
     @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, Category = Model.CurrentCategory }))
