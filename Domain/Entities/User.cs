@@ -14,7 +14,7 @@ namespace Domain.Entities
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите Login")]
-        [StringLength(30)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Длина поля \"Login\" должна быть от 2 до 50 символов")]
         [Display(Name = "Login")]
         public string Login { get; set; }
 
@@ -25,7 +25,7 @@ namespace Domain.Entities
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите пароль")]
-        [StringLength(30)]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Длина поля \"Пароль\" должна быть от 5 до 50 символов")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

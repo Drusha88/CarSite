@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using WebUI.Models;
 using WebUI.Infrastructure;
 using System.IO;
-using System.Diagnostics;
 
 namespace WebUI.Controllers
 {
@@ -85,7 +84,6 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(Car car, HttpPostedFileBase image = null)
         {
-            Debug.WriteLine("Edit: {0}",car.CarId);
             if (ModelState.IsValid)
             {
                 if (image != null)
@@ -93,6 +91,18 @@ namespace WebUI.Controllers
                     car.ImageMimeType = image.ContentType;
                     car.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(car.ImageData, 0, image.ContentLength);
+                }
+                else
+                {
+                    Car tempCar = repository.Cars.FirstOrDefault(c => c.CarId == car.CarId);
+                    if(tempCar != null)
+                    {
+                        if(tempCar.ImageData != null)
+                        {
+                            car.ImageData = tempCar.ImageData;
+                            car.ImageMimeType = tempCar.ImageMimeType;
+                        }
+                    }
                 }
                 repository.SaveCar(car);
                 TempData["message"] = string.Format("Запись \"{0}\" успешно изменена.", car.Name);
@@ -112,7 +122,6 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Create(Car car, HttpPostedFileBase image = null)
         {
-            Debug.WriteLine("Create: {0}", car.CarId);
             if (ModelState.IsValid)
             {
                 if (image != null)
